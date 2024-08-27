@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Shortened URLs</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">🔗 All Shortened URLs</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Original URL</th>
+                        <th scope="col">Shortened URL</th>
+                        <th scope="col">Clicks</th>
+                        <th scope="col">Creation Date</th>
+                        <th scope="col">Last Click</th>
+                        <th scope="col">Last Click IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for url in urls %}
+                    <tr>
+                        <td class="text-truncate" style="max-width: 300px;">{{ url.original_url }}</td>
+                        <td><a href="{{ request.host_url }}{{ url.short_code }}" target="_blank">{{ request.host_url }}{{ url.short_code }}</a></td>
+                        <td>{{ url.click_count }}</td>
+                        <td>{{ url.created_at }}</td>
+                        <td>{{ url.last_click_at if url.last_click_at else 'Never' }}</td>
+                        <td>{{ url.last_click_ip if url.last_click_ip else 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg mr-2">Back to Home</a>
+            <a href="{{ url_for('charts') }}" class="btn btn-info btn-lg">View Analytics</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

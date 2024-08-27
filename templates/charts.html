@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Charts</h1>
+        <div class="my-3">
+            <img src="data:image/png;base64,{{ chart_img }}" alt="Chart">
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Short Code</th>
+                    <th>Original URL</th>
+                    <th>Clicks</th>
+                    <th>Created At</th>
+                    <th>Last Click At</th>
+                    <th>Last Click IP</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(url_data['Short Codes']|length) %}
+                <tr>
+                    <td>{{ url_data['Short Codes'][i] }}</td>
+                    <td>{{ url_data['Original URLs'][i] }}</td>
+                    <td>{{ url_data['Clicks'][i] }}</td>
+                    <td>{{ url_data['Created At'][i] }}</td>
+                    <td>{{ url_data['Last Click At'][i] }}</td>
+                    <td>{{ url_data['Last Click IP'][i] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('download_report', file_type='xlsx') }}" class="btn btn-success">Download Excel Report</a>
+        <a href="{{ url_for('download_report', file_type='docx') }}" class="btn btn-warning">Download Word Report</a>
+        <a href="{{ url_for('download_report', file_type='pptx') }}" class="btn btn-primary">Download PowerPoint Report</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card p-4 shadow">
+            <h1 class="text-center mb-4">✨ URL Shortener</h1>
+            <p class="text-center mb-5 text-muted">Transform your long URLs into short, manageable links!</p>
+
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <form id="url-form" method="POST" action="/" class="form-inline justify-content-center">
+                        <input type="url" name="original_url" class="form-control form-control-lg mr-2 mb-2 mb-md-0" placeholder="Enter your URL here" required>
+                        <button class="btn btn-primary btn-lg" type="submit"><span class="material-icons">link</span> Shorten</button>
+                    </form>
+                </div>
+            </div>
+
+            {% if short_url %}
+            <div class="alert alert-success mt-4 text-center" role="alert">
+                <h4 class="alert-heading">Success!</h4>
+                <p>Your shortened URL:</p>
+                <a href="{{ short_url }}" target="_blank" class="btn btn-success">{{ short_url }}</a>
+            </div>
+            {% endif %}
+
+            <div class="text-center mt-4">
+                <a href="{{ url_for('show_urls') }}" class="btn btn-secondary btn-lg mr-2">Show All URLs</a>
+                <a href="{{ url_for('charts') }}" class="btn btn-info btn-lg">View Analytics</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
