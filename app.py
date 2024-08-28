@@ -8,6 +8,7 @@ from pptx.util import Inches
 import matplotlib.pyplot as plt
 import io
 import base64
+import hashlib
 from datetime import datetime
 
 app = Flask(__name__)
@@ -38,11 +39,14 @@ def index():
 @app.route("/shorten_url", methods=["POST"])
 def shorten_url():
     original_url = request.form["original_url"]
-    short_code = "WebEncurt_" + original_url[:4]  # Ajusta o código curto
+
+    # Gera um hash MD5 da URL original para garantir que o código curto seja único
+    short_code = hashlib.md5(original_url.encode()).hexdigest()[:6]
 
     cursor = db.cursor()
     try:
-        cursor.execute("INSERT INTO urls (original_url, short_code) VALUES (%s, %s)", (original_url, short_code))
+        cursor.execute("INSERT INTO urls (original_url, short_code, created_at, click_count) VALUES (%s, %s, %s, %s)", 
+                       (original_url, short_code, datetime.now(), 0))
         db.commit()
     except mysql.connector.Error as err:
         print(f"Error: {err}")
@@ -50,6 +54,35 @@ def shorten_url():
         cursor.close()
 
     return redirect(url_for("index"))
+
+@app.route("/<short_code>")
+def redirect_url(short_code):
+    cursor = db.cursor(dictionary=True)
+    try:
+        # Atualiza o último clique e o IP no banco de dados
+        cursor.execute("SELECT original_url FROM urls WHERE short_code = %s", (short_code,))
+        url_data = cursor.fetchone()
+
+        if url_data:
+            # Obtém o endereço IP do cliente
+            client_ip = request.remote_addr
+
+            # Atualiza a tabela com o timestamp do último clique e o endereço IP
+            cursor.execute("""
+                UPDATE urls 
+                SET last_click_at = %s, last_click_ip = %s, click_count = click_count + 1 
+                WHERE short_code = %s
+            """, (datetime.now(), client_ip, short_code))
+            db.commit()
+
+            return redirect(url_data['original_url'])
+        else:
+            return "URL não encontrada", 404
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return "Erro no banco de dados", 500
+    finally:
+        cursor.close()
 
 @app.route("/urls")
 def show_urls():
@@ -142,7 +175,7 @@ def download_report(file_type):
             # Add Chart
             fig, ax = plt.subplots()
             ax.bar([url['short_code']], [url['click_count']])
-            ax.set_xlabel('URLs')
+            ax.set_xlabel('Short Codes')
             ax.set_ylabel('Click Count')
             ax.set_title('URL Clicks')
             plt.xticks(rotation=45, ha='right')
@@ -164,6 +197,9 @@ def download_report(file_type):
 
     elif file_type == 'xlsx':
         df = pd.DataFrame(urls)
+        # Format datetime fields correctly for Excel
+        df['created_at'] = df['created_at'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
+        df['last_click_at'] = df['last_click_at'].apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S') if x else 'Never')
         file_stream = io.BytesIO()
         with pd.ExcelWriter(file_stream, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='URLs', index=False)
