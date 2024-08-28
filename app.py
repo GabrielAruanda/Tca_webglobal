@@ -25,49 +25,70 @@ try:
     db = mysql.connector.connect(**db_config)
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
+        print("Algo está errado com seu nome de usuário ou senha")
     elif err.errno == errorcode.ER_BAD_DB_ERROR:
-        print("Database does not exist")
+        print("O banco de dados não existe")
     else:
         print(err)
     exit()
 
-@app.route("/")
+def generate_unique_short_code():
+    """Gera um código curto único."""
+    while True:
+        short_code = hashlib.md5(datetime.now().strftime('%Y-%m-%d %H:%M:%S').encode()).hexdigest()[:6]
+        cursor = db.cursor()
+        cursor.execute("SELECT COUNT(*) FROM urls WHERE short_code = %s", (short_code,))
+        if cursor.fetchone()[0] == 0:
+            cursor.close()
+            return short_code
+        cursor.close()
+
+@app.route("/", methods=["GET", "POST"])
 def index():
+    if request.method == "POST":
+        original_url = request.form["original_url"]
+        short_code = generate_unique_short_code()
+
+        cursor = db.cursor()
+        try:
+            cursor.execute("INSERT INTO urls (original_url, short_code, created_at, click_count) VALUES (%s, %s, %s, %s)", 
+                           (original_url, short_code, datetime.now(), 0))
+            db.commit()
+            short_url = url_for("redirect_url", short_code=short_code, _external=True)
+            return render_template("index.html", short_url=short_url)
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+        finally:
+            cursor.close()
+    
     return render_template("index.html")
 
 @app.route("/shorten_url", methods=["POST"])
 def shorten_url():
     original_url = request.form["original_url"]
-
-    # Gera um hash MD5 da URL original para garantir que o código curto seja único
-    short_code = hashlib.md5(original_url.encode()).hexdigest()[:6]
+    short_code = generate_unique_short_code()
 
     cursor = db.cursor()
     try:
         cursor.execute("INSERT INTO urls (original_url, short_code, created_at, click_count) VALUES (%s, %s, %s, %s)", 
                        (original_url, short_code, datetime.now(), 0))
         db.commit()
+        short_url = url_for("redirect_url", short_code=short_code, _external=True)
+        return render_template("index.html", short_url=short_url)
     except mysql.connector.Error as err:
         print(f"Error: {err}")
     finally:
         cursor.close()
 
-    return redirect(url_for("index"))
-
 @app.route("/<short_code>")
 def redirect_url(short_code):
     cursor = db.cursor(dictionary=True)
     try:
-        # Atualiza o último clique e o IP no banco de dados
         cursor.execute("SELECT original_url FROM urls WHERE short_code = %s", (short_code,))
         url_data = cursor.fetchone()
 
         if url_data:
-            # Obtém o endereço IP do cliente
             client_ip = request.remote_addr
-
-            # Atualiza a tabela com o timestamp do último clique e o endereço IP
             cursor.execute("""
                 UPDATE urls 
                 SET last_click_at = %s, last_click_ip = %s, click_count = click_count + 1 
@@ -206,7 +227,7 @@ def download_report(file_type):
         file_stream.seek(0)
         return send_file(file_stream, as_attachment=True, download_name="report.xlsx", mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
-    return "Invalid file type", 400
+    return "Tipo de arquivo inválido", 400
 
 if __name__ == "__main__":
     app.run(debug=True)
