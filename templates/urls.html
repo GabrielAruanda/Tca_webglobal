@@ -19,6 +19,7 @@
             color: #343a40;
         }
         .navbar {
+            padding: 15px;
             background-color: #007bff;
         }
         .navbar a {
@@ -29,15 +30,25 @@
         }
         .navbar-nav {
             flex-direction: row;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: 290px;
         }
         .navbar-nav .nav-item {
-            margin-left: 15px;
-            margin-right: 15px;
+    
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #ffcc00 !important;
         }
         .content {
             margin-top: 80px; /* Ajustado para mover o conteúdo abaixo da navbar */
+        }
+        .container{
+            margin-top: 100px;
         }
         .table {
             background-color: #ffffff;
@@ -71,7 +82,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                 </li>
@@ -86,7 +97,7 @@
     </nav>
 
     <!-- Content -->
-    <div class="container mt-5 content">
+    <div class="container content">
         <h1 class="text-center mb-4">🔗 All Shortened URLs</h1>
 
         <div class="table-responsive">
