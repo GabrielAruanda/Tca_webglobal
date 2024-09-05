@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Shortened URLs</title>
 
     <!-- Bootstrap CSS -->
+    <!-- Inclui o CSS do Bootstrap para estilizar a página. -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Google Fonts -->
+    <!-- Inclui a fonte 'Poppins' do Google Fonts para estilização do texto. -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
     <!-- Google Icons -->
+    <!-- Inclui os ícones do Google para usar ícones de material design. -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
+        /* Estiliza o corpo da página com fonte, cores e transições. */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
@@ -23,26 +28,31 @@
             transition: background-color 0.5s, color 0.5s;
         }
 
+        /* Estiliza o corpo da página no modo escuro. */
         .dark-mode {
             background-color: #343a40;
             color: #f8f9fa;
         }
 
+        /* Estiliza a barra de navegação. */
         .navbar {
             background-color: #007bff;
             padding: 15px;
             transition: background-color 0.5s;
         }
 
+        /* Estiliza a barra de navegação no modo escuro. */
         .dark-mode .navbar {
             background-color: #0056b3;
         }
 
+        /* Estiliza a marca da barra de navegação. */
         .navbar-brand {
             font-weight: 700;
             letter-spacing: 1px;
         }
 
+        /* Estiliza os itens da barra de navegação. */
         .navbar-nav {
             margin-left: 270px;
         }
@@ -57,10 +67,12 @@
             transition: color 0.3s ease;
         }
 
+        /* Estiliza o link da barra de navegação ao passar o mouse. */
         .navbar-nav .nav-link:hover {
             color: #ffcc00 !important;
         }
 
+        /* Estiliza a barra de navegação para dispositivos móveis. */
         @media (max-width: 991px) {
             .navbar-nav {
                 flex-direction: column;
@@ -77,6 +89,7 @@
             }
         }
 
+        /* Estiliza a seção de conteúdo principal. */
         .content {
             margin-top: 100px;
         }
@@ -85,66 +98,79 @@
             padding-top: 20px;
         }
 
+        /* Estiliza a tabela com fundo branco, bordas arredondadas e sombra. */
         .table {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* Estiliza a tabela no modo escuro. */
         .dark-mode .table {
             background-color: #4f4f4f;
         }
 
+        /* Estiliza o cabeçalho da tabela. */
         .tabela {
             background-color: #007bff;
             color: #ffffff;
             font-weight: 700;
         }
 
+        /* Estiliza o cabeçalho da tabela no modo escuro. */
         .dark-mode .tabela {
             background-color: #0056b3;
         }
 
+        /* Estiliza o botão primário. */
         .btn-primary {
             background-color: #007bff;
             border: none;
         }
 
+        /* Estiliza o botão primário ao passar o mouse. */
         .btn-primary:hover {
             background-color: #0056b3;
         }
 
+        /* Estiliza o botão primário no modo escuro. */
         .dark-mode .btn-primary {
             background-color: #0056b3;
         }
 
+        /* Estiliza o botão primário ao passar o mouse no modo escuro. */
         .dark-mode .btn-primary:hover {
             background-color: #003d7a;
         }
 
+        /* Estiliza o texto truncado para caber em uma única linha com reticências. */
         .text-truncate {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
+        /* Estiliza a tabela responsiva para dispositivos menores. */
         @media (max-width: 768px) {
             .table-responsive {
                 overflow-x: auto;
             }
         }
 
+        /* Estiliza o ícone de alternância de tema. */
         .theme-toggle {
             cursor: pointer;
             color: #ffffff;
             transition: color 0.3s ease;
         }
 
+        /* Estiliza o ícone de alternância de tema ao passar o mouse. */
         .theme-toggle:hover {
             color: #ffcc00 !important;
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -164,14 +190,17 @@
                     <a class="nav-link" href="{{ url_for('charts') }}">View Analytics</a>
                 </li>
             </ul>
+            <!-- Ícone para alternar entre o modo claro e escuro. -->
             <span class="material-icons theme-toggle ml-auto" onclick="toggleTheme()">brightness_6</span>
         </div>
     </nav>
 
     <!-- Content -->
     <div class="container content">
+        <!-- Título da página -->
         <h1 class="text-center mb-4">🔗 All Shortened URLs</h1>
 
+        <!-- Tabela com todas as URLs encurtadas -->
         <div class="table-responsive">
             <table class="table table-bordered table-hover mt-4">
                 <thead class="tabela">
@@ -185,6 +214,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Itera sobre as URLs e exibe os dados na tabela -->
                     {% for url in urls %}
                     <tr>
                         <td class="text-truncate">{{ url.original_url }}</td>
@@ -199,6 +229,7 @@
             </table>
         </div>
 
+        <!-- Botões para voltar à página inicial e ver análises -->
         <div class="text-center mt-4">
             <a href="{{ url_for('index') }}" class="btn btn-secondary btn-lg">Back to Home</a>
             <a href="{{ url_for('charts') }}" class="btn btn-info btn-lg">View Analytics</a>
@@ -206,15 +237,18 @@
     </div>
 
     <!-- Bootstrap JS and dependencies -->
+    <!-- Inclui os arquivos JavaScript do Bootstrap e suas dependências para funcionalidade da navbar e outros componentes. -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
+    <!-- Script para alternar entre o modo claro e escuro. -->
     <script>
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
         }
     </script>
 </body>
+
 </html>

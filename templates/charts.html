@@ -7,197 +7,203 @@
     <title>URL Analytics</title>
 
     <!-- Bootstrap CSS -->
+    <!-- Inclui o arquivo CSS do Bootstrap, que fornece estilos e componentes pré-definidos para criar layouts responsivos e estilizados. -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Google Fonts -->
+    <!-- Importa a fonte Poppins do Google Fonts para estilizar o texto da página. -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
     <!-- Google Icons -->
+    <!-- Inclui o arquivo de ícones do Google para utilizar ícones em diversos tamanhos e estilos. -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <!-- Estilos personalizados para a página, incluindo o tema claro e escuro, a aparência da navbar, e os estilos para tabelas e botões. -->
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
-            transition: background-color 0.5s, color 0.5s;
+            font-family: 'Poppins', sans-serif; /* Define a fonte Poppins como a fonte padrão para o corpo da página. */
+            background-color: #f8f9fa; /* Cor de fundo clara para o modo claro. */
+            color: #343a40; /* Cor do texto para o modo claro. */
+            transition: background-color 0.5s, color 0.5s; /* Suaviza a transição de cores quando o tema é alterado. */
         }
 
         .dark-mode {
-            background-color: #343a40;
-            color: #f8f9fa;
+            background-color: #343a40; /* Cor de fundo escura para o modo escuro. */
+            color: #f8f9fa; /* Cor do texto para o modo escuro. */
         }
 
         .navbar {
-            background-color: #007bff;
-            padding: 15px;
-            transition: background-color 0.5s;
+            background-color: #007bff; /* Cor de fundo da navbar para o modo claro. */
+            padding: 15px; /* Espaçamento interno da navbar. */
+            transition: background-color 0.5s; /* Suaviza a transição da cor de fundo da navbar. */
         }
 
         .dark-mode .navbar {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Cor de fundo da navbar para o modo escuro. */
         }
 
         .navbar-brand {
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-weight: 700; /* Fonte em negrito para o nome da marca. */
+            letter-spacing: 1px; /* Espaçamento entre letras no nome da marca. */
         }
 
         .navbar-nav {
-            flex-direction: row;
-            margin-left: 270px;
+            flex-direction: row; /* Alinha os itens de navegação em linha. */
+            margin-left: 270px; /* Espaçamento à esquerda dos itens de navegação. */
         }
 
         .navbar-nav .nav-item {
-            margin-left: 20px;
+            margin-left: 20px; /* Espaçamento entre os itens de navegação. */
         }
 
         .navbar-nav .nav-link {
-            color: #ffffff !important;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            color: #ffffff !important; /* Cor do texto dos links de navegação. */
+            font-weight: 500; /* Fonte com peso médio. */
+            transition: color 0.3s ease; /* Suaviza a transição de cor ao passar o mouse. */
         }
 
         .navbar-nav .nav-link:hover {
-            color: #ffcc00 !important;
+            color: #ffcc00 !important; /* Cor do texto dos links ao passar o mouse. */
         }
 
         .content {
-            margin-top: 80px;
+            margin-top: 80px; /* Espaçamento acima do conteúdo principal para não sobrepor a navbar. */
         }
 
         h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #007bff;
+            font-size: 2.5rem; /* Tamanho da fonte do título. */
+            font-weight: 700; /* Fonte em negrito para o título. */
+            color: #007bff; /* Cor do texto do título. */
         }
 
         .table {
-            margin-top: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Espaçamento acima da tabela. */
+            background-color: #ffffff; /* Cor de fundo da tabela para o modo claro. */
+            border-radius: 10px; /* Arredonda os cantos da tabela. */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve à tabela. */
         }
 
         .dark-mode .table {
-            background-color: #4f4f4f;
+            background-color: #4f4f4f; /* Cor de fundo da tabela para o modo escuro. */
         }
 
         thead {
-            background-color: #007bff;
-            color: #ffffff;
-            font-weight: 700;
+            background-color: #007bff; /* Cor de fundo do cabeçalho da tabela. */
+            color: #ffffff; /* Cor do texto do cabeçalho da tabela. */
+            font-weight: 700; /* Fonte em negrito para o cabeçalho da tabela. */
         }
 
         .dark-mode thead {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Cor de fundo do cabeçalho da tabela para o modo escuro. */
         }
 
         th, td {
-            padding: 12px;
-            text-align: center;
+            padding: 12px; /* Espaçamento interno das células da tabela. */
+            text-align: center; /* Alinha o texto das células ao centro. */
         }
 
         .btn {
-            margin: 10px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 10px; /* Espaçamento ao redor dos botões. */
+            padding: 10px 20px; /* Espaçamento interno dos botões. */
+            border-radius: 50px; /* Arredonda os cantos dos botões. */
+            font-weight: 500; /* Fonte com peso médio para os botões. */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza a transição de cor de fundo e texto ao passar o mouse. */
         }
 
         .btn-success {
-            background-color: #28a745;
-            border: none;
+            background-color: #28a745; /* Cor de fundo verde para o botão de sucesso. */
+            border: none; /* Remove a borda do botão. */
         }
 
         .btn-success:hover {
-            background-color: #218838;
+            background-color: #218838; /* Cor de fundo do botão de sucesso ao passar o mouse. */
         }
 
         .btn-warning {
-            background-color: #ffc107;
-            border: none;
-            color: #343a40;
+            background-color: #ffc107; /* Cor de fundo amarela para o botão de aviso. */
+            border: none; /* Remove a borda do botão. */
+            color: #343a40; /* Cor do texto do botão de aviso. */
         }
 
         .btn-warning:hover {
-            background-color: #e0a800;
+            background-color: #e0a800; /* Cor de fundo do botão de aviso ao passar o mouse. */
         }
 
         .btn-primary {
-            background-color: #007bff;
-            border: none;
+            background-color: #007bff; /* Cor de fundo azul para o botão primário. */
+            border: none; /* Remove a borda do botão. */
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Cor de fundo do botão primário ao passar o mouse. */
         }
 
         .chart-container {
-            position: relative;
-            width: 100%;
-            margin: 0 auto;
-            max-width: 900px;
+            position: relative; /* Permite que a posição do canvas seja ajustada dentro deste contêiner. */
+            width: 100%; /* Define a largura do contêiner do gráfico para 100% do elemento pai. */
+            margin: 0 auto; /* Centraliza o contêiner horizontalmente. */
+            max-width: 900px; /* Define a largura máxima do contêiner do gráfico. */
         }
 
         .chart-container canvas {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; /* Arredonda os cantos do canvas do gráfico. */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve ao canvas do gráfico. */
         }
 
         /* Responsividade */
+        /* Estilos específicos para dispositivos com largura máxima de 768px (teléfonos e tablets). */
         @media (max-width: 768px) {
             .navbar-nav {
-                flex-direction: column;
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-                text-align: center;
+                flex-direction: column; /* Alinha os itens de navegação em coluna em vez de linha. */
+                margin-left: 0; /* Remove a margem esquerda dos itens de navegação. */
+                margin-right: 0; /* Remove a margem direita dos itens de navegação. */
+                width: 100%; /* Define a largura dos itens de navegação para 100%. */
+                text-align: center; /* Centraliza o texto dos itens de navegação. */
             }
 
             .navbar-nav .nav-item {
-                margin-left: 0;
-                margin-top: 10px;
+                margin-left: 0; /* Remove a margem esquerda dos itens de navegação. */
+                margin-top: 10px; /* Adiciona uma margem superior aos itens de navegação. */
             }
 
             .navbar-nav .nav-item:first-child {
-                margin-top: 0;
+                margin-top: 0; /* Remove a margem superior do primeiro item de navegação. */
             }
 
             .navbar-toggler {
-                margin-right: 10px;
+                margin-right: 10px; /* Adiciona uma margem à direita do botão de alternância da navbar. */
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 2rem; /* Reduz o tamanho da fonte do título em dispositivos pequenos. */
             }
 
             .table {
-                font-size: 0.9rem;
+                font-size: 0.9rem; /* Reduz o tamanho da fonte da tabela em dispositivos pequenos. */
             }
 
             .btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
+                padding: 8px 16px; /* Reduz o espaçamento interno dos botões em dispositivos pequenos. */
+                font-size: 0.9rem; /* Reduz o tamanho da fonte dos botões em dispositivos pequenos. */
             }
         }
 
         .theme-toggle {
-            cursor: pointer;
-            color: #ffffff;
-            transition: color 0.3s ease;
+            cursor: pointer; /* Define o cursor como ponteiro para indicar que o elemento é clicável. */
+            color: #ffffff; /* Cor do ícone para o modo claro. */
+            transition: color 0.3s ease; /* Suaviza a transição de cor ao passar o mouse sobre o ícone. */
         }
 
         .theme-toggle:hover {
-            color: #ffcc00 !important;
+            color: #ffcc00 !important; /* Cor do ícone ao passar o mouse. */
         }
     </style>
 </head>
 
 <body>
     <!-- Navbar -->
+    <!-- Barra de navegação fixa no topo da página, contendo links para as diferentes seções do site e um ícone para alternar entre o modo claro e escuro. -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <a class="navbar-brand" href="{{ url_for('index') }}">URL Shortener</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -221,6 +227,7 @@
     </nav>
 
     <!-- Content -->
+    <!-- Seção principal da página contendo o título, o gráfico e a tabela com dados das URLs. Também inclui botões para download dos relatórios. -->
     <div class="container content text-center">
         <h1 class="mt-5">URL Analytics</h1>
         <div class="my-4 chart-container">
@@ -260,67 +267,69 @@
     </div>
 
     <!-- Chart.js -->
+    <!-- Inclui o arquivo JavaScript do Chart.js para criar gráficos. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom JS -->
+    <!-- Scripts personalizados para a inicialização do gráfico e a alternância do tema. -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('urlChart').getContext('2d');
             var urlData = {{ url_data | tojson }};
             var chart = new Chart(ctx, {
-                type: 'bar',
+                type: 'bar', /* Tipo de gráfico: barras. */
                 data: {
-                    labels: urlData.map(url => url.short_code),
+                    labels: urlData.map(url => url.short_code), /* Rótulos do eixo x (código curto da URL). */
                     datasets: [{
-                        label: 'Clicks',
-                        data: urlData.map(url => url.click_count),
-                        backgroundColor: 'rgba(0, 123, 255, 0.6)',
-                        borderColor: 'rgba(0, 123, 255, 1)',
-                        borderWidth: 1
+                        label: 'Clicks', /* Rótulo da série de dados. */
+                        data: urlData.map(url => url.click_count), /* Dados para o gráfico (número de cliques). */
+                        backgroundColor: 'rgba(0, 123, 255, 0.6)', /* Cor de fundo das barras. */
+                        borderColor: 'rgba(0, 123, 255, 1)', /* Cor da borda das barras. */
+                        borderWidth: 1 /* Largura da borda das barras. */
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, /* Faz com que o gráfico seja responsivo. */
+                    maintainAspectRatio: false, /* Permite ajustar o gráfico para preencher o contêiner. */
                     scales: {
                         x: {
-                            beginAtZero: true,
+                            beginAtZero: true, /* Começa o eixo x a partir do zero. */
                             ticks: {
-                                color: '#6c757d',
+                                color: '#6c757d', /* Cor dos rótulos do eixo x. */
                                 font: {
-                                    size: 14
+                                    size: 14 /* Tamanho da fonte dos rótulos do eixo x. */
                                 }
                             },
                             grid: {
-                                display: false
+                                display: false /* Oculta a grade do eixo x. */
                             }
                         },
                         y: {
-                            beginAtZero: true,
+                            beginAtZero: true, /* Começa o eixo y a partir do zero. */
                             ticks: {
-                                color: '#6c757d',
+                                color: '#6c757d', /* Cor dos rótulos do eixo y. */
                                 font: {
-                                    size: 14
+                                    size: 14 /* Tamanho da fonte dos rótulos do eixo y. */
                                 }
                             },
                             grid: {
-                                color: '#dee2e6'
+                                color: '#dee2e6' /* Cor da grade do eixo y. */
                             }
                         }
                     },
                     plugins: {
                         legend: {
                             labels: {
-                                color: '#6c757d',
+                                color: '#6c757d', /* Cor dos rótulos da legenda. */
                                 font: {
-                                    size: 16
+                                    size: 16 /* Tamanho da fonte dos rótulos da legenda. */
                                 }
                             }
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': ' + context.raw;
+                                    return context.dataset.label + ': ' + context.raw; /* Formatação da tooltip. */
                                 }
                             }
                         }
@@ -330,11 +339,12 @@
         });
 
         function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('dark-mode'); /* Alterna a classe 'dark-mode' no corpo da página para mudar o tema. */
         }
     </script>
 
     <!-- Bootstrap JS and dependencies -->
+    <!-- Inclui os arquivos JavaScript do Bootstrap e suas dependências para a funcionalidade da navbar e outros componentes. -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
