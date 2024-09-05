@@ -11,66 +11,137 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Custom CSS -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
             color: #343a40;
+            transition: background-color 0.5s, color 0.5s;
         }
+
+        .dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
         .navbar {
-            padding: 15px;
             background-color: #007bff;
+            padding: 15px;
+            transition: background-color 0.5s;
         }
-        .navbar a {
-            color: #ffffff;
+
+        .dark-mode .navbar {
+            background-color: #0056b3;
         }
-        .navbar a:hover {
-            color: #ffcc00;
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
         }
+
         .navbar-nav {
-            flex-direction: row;
-            margin-left: 290px;
+            margin-left: 270px;
         }
+
         .navbar-nav .nav-item {
-    
+            margin-left: 20px;
         }
-        .navbar-nav .nav-item .nav-link {
+
+        .navbar-nav .nav-link {
             color: #ffffff !important;
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
-        .navbar-nav .nav-item .nav-link:hover {
+        .navbar-nav .nav-link:hover {
             color: #ffcc00 !important;
         }
-        .content {
-            margin-top: 80px; /* Ajustado para mover o conteúdo abaixo da navbar */
+
+        @media (max-width: 991px) {
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .navbar-nav .nav-item {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            .navbar-nav .nav-item:first-child {
+                margin-top: 0;
+            }
         }
-        .container{
+
+        .content {
             margin-top: 100px;
         }
+
+        .container {
+            padding-top: 20px;
+        }
+
         .table {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .thead-dark {
+
+        .dark-mode .table {
+            background-color: #4f4f4f;
+        }
+
+        .tabela {
             background-color: #007bff;
             color: #ffffff;
             font-weight: 700;
         }
+
+        .dark-mode .tabela {
+            background-color: #0056b3;
+        }
+
         .btn-primary {
             background-color: #007bff;
             border: none;
         }
+
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        .dark-mode .btn-primary {
+            background-color: #0056b3;
+        }
+
+        .dark-mode .btn-primary:hover {
+            background-color: #003d7a;
+        }
+
         .text-truncate {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: #ffcc00 !important;
         }
     </style>
 </head>
@@ -93,6 +164,7 @@
                     <a class="nav-link" href="{{ url_for('charts') }}">View Analytics</a>
                 </li>
             </ul>
+            <span class="material-icons theme-toggle ml-auto" onclick="toggleTheme()">brightness_6</span>
         </div>
     </nav>
 
@@ -102,7 +174,7 @@
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover mt-4">
-                <thead class="thead-dark">
+                <thead class="tabela">
                     <tr>
                         <th scope="col">Original URL</th>
                         <th scope="col">Shortened URL</th>
@@ -137,5 +209,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
