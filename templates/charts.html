@@ -239,14 +239,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in range(url_data['Short Codes']|length) %}
+                    {% for url in url_data %}
                     <tr>
-                        <td>{{ url_data['Short Codes'][i] }}</td>
-                        <td>{{ url_data['Original URLs'][i] }}</td>
-                        <td>{{ url_data['Clicks'][i] }}</td>
-                        <td>{{ url_data['Created At'][i] }}</td>
-                        <td>{{ url_data['Last Click At'][i] }}</td>
-                        <td>{{ url_data['Last Click IP'][i] }}</td>
+                        <td>{{ url.short_code }}</td>
+                        <td>{{ url.original_url }}</td>
+                        <td>{{ url.click_count }}</td>
+                        <td>{{ url.created_at }}</td>
+                        <td>{{ url.last_click_at if url.last_click_at else 'Never' }}</td>
+                        <td>{{ url.last_click_ip if url.last_click_ip else 'N/A' }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -270,10 +270,10 @@
             var chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: urlData['Short Codes'],
+                    labels: urlData.map(url => url.short_code),
                     datasets: [{
                         label: 'Clicks',
-                        data: urlData['Clicks'],
+                        data: urlData.map(url => url.click_count),
                         backgroundColor: 'rgba(0, 123, 255, 0.6)',
                         borderColor: 'rgba(0, 123, 255, 1)',
                         borderWidth: 1
@@ -304,22 +304,23 @@
                                 }
                             },
                             grid: {
-                                borderColor: '#e9ecef',
-                                borderWidth: 1
+                                color: '#dee2e6'
                             }
                         }
                     },
                     plugins: {
                         legend: {
-                            position: 'top',
                             labels: {
-                                color: '#343a40'
+                                color: '#6c757d',
+                                font: {
+                                    size: 16
+                                }
                             }
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return `Clicks: ${context.raw}`;
+                                    return context.dataset.label + ': ' + context.raw;
                                 }
                             }
                         }
@@ -335,7 +336,8 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
+</html>
